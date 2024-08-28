@@ -1,16 +1,11 @@
 const express = require("express")
-const path = require("path")
-
+const  products = require("./data.js")
 const app = express()
-app.use(express.static("./public"))
-app.get("/", (req,res)=> {
-    res.sendFile(path.resolve(__dirname,"./navbar-app/index.html"))
-})
 
-app.all("*",(req,res)=> {
-    res.status(404).send("<h1>RESOURCE NOT FOUND</h1>")
+app.get("/",(req,res)=> {
+    res.json(products)
 })
 
 app.listen(5000,()=> {
-    console.log("listening on port 5000")
+    console.log("server is listening in port 5000")
 })
