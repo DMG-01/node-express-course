@@ -6,6 +6,8 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
+    socketTimeoutMS: 45000, 
+  connectTimeoutMS: 30000,
     useUnifiedTopology: true,
   })
 }
