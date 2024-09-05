@@ -2,14 +2,17 @@ const connectDb = require("./db/databaseConnect.Js")
 const express = require("express")
 const app = express()
 const task = require("./router/task")
+
+const notFound = require("./middleware/notFound")
 require("dotenv").config()
 
 
+app.use(express.static("./public"))
 app.use(express.json())
 app.get("/hello", (req,res)=> {
     res.send("Task Manager")
 })
-
+app.use(notFound)
 
 app.use("/api/v1/tasks",task)
 
