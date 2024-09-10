@@ -9,32 +9,24 @@ const login = async (req,res)=> {
 const id = new Date().getDate()
 
 const token = jwt.sign({id,username},process.env.JWT_STRING,{expiresIn:"30d"})
-    console.log(req.body)
+    //console.log(req.body)
     res.status(200).json({msg:"user created", token:token})
 }
 
 const dashboard = async (req,res)=> {
+     console.log(req.user)
     const luckyNumber = Math.floor(Math.random()*100)
-    console.log(req.headers)
-    const authHeader = req.headers.authorization
-
-    if(!authHeader || !authHeader.startsWith("Bearer ")) {
-throw new CustomAPIError("no token provided",401)
-    }
-
-    const token = authHeader.split(" ")[1]
-    console.log(token)
-
+    console.log
     try {
-const decode = jwt.decode(token,process.env.JWT_STRING)
-console.log(decode)
+res.status(200).json({
+    msg:`Hello ${req.user.username}`,
+    secret:`Here is your authorized number, your secret data is ${luckyNumber}`
+     })
     }catch(error) {
         throw new CustomAPIError(error,401)
     }
-    res.status(200).json({
-   msg:`Hello Femi`,
-   secret:`Here is your authorized number, your secre data is ${luckyNumber}`
-    })
+
+    
     
 }
 
